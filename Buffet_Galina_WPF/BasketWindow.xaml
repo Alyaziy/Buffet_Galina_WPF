@@ -1,0 +1,43 @@
+﻿<Window x:Class="Buffet_Galina_WPF.BasketWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Buffet_Galina_WPF"
+        mc:Ignorable="d"
+        Title="Корзина" MinHeight="750" MinWidth="800" MaxHeight="750" MaxWidth="800" Background="#FF326D">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+
+
+
+        <StackPanel Grid.Row="0" Background="White" Grid.RowSpan="2" >
+            <Image Source="Images/header3.png" Height="119" Width="372"/>
+
+            <!--<TextBlock Text= "Buffet Galina" FontSize="31" HorizontalAlignment="Center"  Foreground="Black"/>-->
+
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Label  FontSize="30" Foreground="#BC22A2" FontFamily="./#Aboreto-Regular" Margin="25 15 0 15" VerticalContentAlignment="Center">Ваш заказ</Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Vertical" >
+            <Button  FontSize="30" Background="#FF326D" Click="Back_Click" HorizontalAlignment="Left" BorderThickness="0" Margin="10 0 0 0">
+                <Image Source="Images/arrow1.png" Height="75" Width="80"/>
+            </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="3" Orientation="Vertical">
+            <Button FontSize="30" Background="#FF326D" Click="Order_Click" HorizontalAlignment="Right" BorderThickness="0" Margin="10 0 0 0">
+                <Image Source="Images/order.png" Height="75" Width="85"/>
+            </Button>
+        </StackPanel>
+        
+    </Grid>
+</Window>

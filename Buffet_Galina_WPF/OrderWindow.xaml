@@ -1,0 +1,30 @@
+﻿<Window x:Class="Buffet_Galina_WPF.OrderWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Buffet_Galina_WPF"
+        mc:Ignorable="d"
+        Title="Заказ" MinHeight="450" MinWidth="600" MaxHeight="455" MaxWidth="605" Background="#FF326D">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0"/>
+            <RowDefinition Height="110"/>
+            <RowDefinition/>
+            <RowDefinition Height="75"/>
+        </Grid.RowDefinitions>
+
+
+
+        <StackPanel Grid.Row="0" Background="White" Grid.RowSpan="2" >
+            <Image Source="Images/header3.png" Height="119" Width="372"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal">
+            <Button  FontSize="30" Background="White" Click="Home_Click" HorizontalAlignment="Left" BorderThickness="0" Margin="10 0 0 0">
+                <Image Source="Images/home.png" Height="95" Width="95"/>
+            </Button>
+        </StackPanel>
+
+    </Grid>
+</Window>

@@ -1,0 +1,45 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net6.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <UseWPF>true</UseWPF>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="Aboreto\Aboreto-Regular.ttf" />
+    <None Remove="Images\admin.png" />
+    <None Remove="Images\arrow.png" />
+    <None Remove="Images\arrow1.png" />
+    <None Remove="Images\basket.png" />
+    <None Remove="Images\basket.svg" />
+    <None Remove="Images\basket3.png" />
+    <None Remove="Images\header2.png" />
+    <None Remove="Images\header3.png" />
+    <None Remove="Images\home.png" />
+    <None Remove="Images\navigation.png" />
+    <None Remove="Images\order.png" />
+    <None Remove="Images\picture.png" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Aboreto\Aboreto-Regular.ttf" />
+    <Resource Include="Images\admin.png" />
+    <Resource Include="Images\arrow1.png" />
+    <Resource Include="Images\basket.png" />
+    <Resource Include="Images\header2.png" />
+    <Resource Include="Images\header3.png" />
+    <Resource Include="Images\home.png" />
+    <Resource Include="Images\navigation.png" />
+    <Resource Include="Images\order.png" />
+    <Resource Include="Images\picture.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+  </ItemGroup>
+
+</Project>
