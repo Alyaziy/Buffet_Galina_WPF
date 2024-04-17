@@ -33,7 +33,7 @@
                 <Image Source="Images/navigation.png" Height="100" Width="100"  />
             </Button>
         </StackPanel>
-        <DataGrid Grid.Row="1" AutoGenerateColumns="False" Background="#FF326D" HorizontalContentAlignment="Stretch"
+        <DataGrid CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False" Background="#FF326D" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Dishes}" SelectedItem="{Binding SelectedDish}" SelectionMode="Single">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="Меню">
@@ -45,17 +45,18 @@
                                     <ColumnDefinition/>
                                     <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
-                                <Border Grid.Column="1" BorderBrush="Black" BorderThickness="0.5">
-                                    <Image MaxWidth="300" Source="{Binding Image}"/>
+                                <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
+                                    <Image MaxWidth="300" Source="{Binding Image}" Stretch="UniformToFill"/>
                                 </Border>
-                                <Border Width="300"  BorderBrush="Black" BorderThickness="0.5" Grid.Column="0">
-                                    <StackPanel >
+                                <Border Width="300" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                    <StackPanel HorizontalAlignment="Right">
                                         <TextBlock  Text="{Binding Title,
-                                        StringFormat='Название: {0}'}"/>
+                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
                                         <TextBlock Text="{Binding Price,
-                                        StringFormat='Цена: {0}'}"/>
+                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
                                     </StackPanel>
                                 </Border>
+                                
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>

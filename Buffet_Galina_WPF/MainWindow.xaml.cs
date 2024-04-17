@@ -26,6 +26,7 @@ namespace Buffet_Galina_WPF
     {
         public ObservableCollection<DishDTO> Dishes { get; set; }
         public DishDTO SelectedDish { get; set; }
+        
         public MainWindow()
         {
 

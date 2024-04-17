@@ -8,24 +8,69 @@
         Title="Страница администратора" MinHeight="700" MinWidth="900" Background="#FF326D" >
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="0"/>
-            <RowDefinition Height="110"/>
-            <RowDefinition/>
+            <RowDefinition Height="110" />
+            <RowDefinition/>                    
         </Grid.RowDefinitions>
 
-    
+
 
         <StackPanel Grid.Row="0" Background="White" Grid.RowSpan="2" >
             <Image Source="Images/header3.png" Height="119" Width="372"/>
+
+            <!--<TextBlock Text= "Buffet Galina" FontSize="31" HorizontalAlignment="Center"  Foreground="Black"/>-->
+
         </StackPanel>
 
-        <StackPanel Grid.Row="2" HorizontalAlignment="Left" VerticalAlignment="Bottom" >
-            <Button Grid.Row="0" Background="#FF326D" Margin="10 0 10 10" BorderThickness="0" Click="Back_Click">
-                <Image Source="Images/arrow1.png" Height="100" Width="100" />
+        <StackPanel Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" >
+            <Button Grid.Row="0" Background="White" Margin="0 5 30 0" BorderThickness="0" Click="Back_Click">
+                <Image Source="Images/arrow1.png" Height="100" Width="100"  />
             </Button>
         </StackPanel>
-        
-        
+
+
+        <DataGrid CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False" Background="#FF326D" 
+                  ItemsSource="{Binding Dishes}" SelectedItem="{Binding SelectedDish}" SelectionMode="Single">
+            <DataGrid.Columns>
+                <DataGridTemplateColumn Header="Меню">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <Grid Background="#FF326D">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition/>
+                                </Grid.ColumnDefinitions>
+                                <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
+                                    <Image MaxWidth="300" Source="{Binding Image}" Stretch="UniformToFill"/>
+                                </Border>
+                                <Border Width="300" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                    <StackPanel HorizontalAlignment="Right">
+                                        <TextBlock  Text="{Binding Title,
+                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Price,
+                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
+                                    </StackPanel>
+                                </Border>
+                            </Grid>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
+            </DataGrid.Columns>
+        </DataGrid>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 20 10 0" Orientation="Horizontal" Grid.Column="3">
+            <Button Content="Добавить" Click="Add_Click" Height="30" Width="100" Foreground="#BC22A2" Background="#FFE0EF"/>
+            <Button Content="Редактировать" Click="Edit_Click" Height="30" Width="100" Foreground="#BC22A2" Background="#FFE0EF"/>
+            
+            
+        </StackPanel>
+
+        <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 20">
+            <Button Content="Удалить" Click="Delete_Click"  Height="30" Width="100" Foreground="#BC22A2" Background="#FFE0EF"/>
+        </StackPanel>
+
+
+
+
 
     </Grid>
 </Window>

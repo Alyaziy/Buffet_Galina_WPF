@@ -44,7 +44,6 @@ namespace Buffet_Galina_WPF
                 var admin = await Client.Instance.LoginAdmin(Admin, Password);
                 AdminWindow adminWindow = new AdminWindow(admin);
                 adminWindow.Show();
-                //MessageBox.Show("Пиривет Лох Безденежный");
                 Close();
             }
             catch (Exception ex)

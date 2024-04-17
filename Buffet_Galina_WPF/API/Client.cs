@@ -61,20 +61,7 @@ namespace Buffet_Galina_WPF.API
                 // Обработка исключений
                 Console.WriteLine(ex.Message);
                 return null;
-            }
-
-
-            //var response = await httpClient.GetAsync("Dishes/GetDish");
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    string jsonResponse = await response.Content.ReadAsStringAsync();
-            //    List<DishDTO> elements = JsonConvert.DeserializeObject<List<DishDTO>>(jsonResponse);
-
-            //    // Отобразите данные в элементах управления WPF, например:
-            //    dataGrid.ItemsSource = elements;
-            //}
-            // return null;
-
+            }            
         }
 
 
@@ -101,7 +88,15 @@ namespace Buffet_Galina_WPF.API
             }
         }
 
-        
+        public async Task DeleteDish(int id)
+        {
+            using HttpResponseMessage response = await httpClient.DeleteAsync("Admin/" + id);
+            response.EnsureSuccessStatusCode();
+           
+
+        }
+
+
 
 
         static Client instance = new();
