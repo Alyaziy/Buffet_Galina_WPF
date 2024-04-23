@@ -1,7 +1,9 @@
-﻿using System;
+﻿using Buffet_Galina_WPF.DTO;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,14 +22,32 @@ namespace Buffet_Galina_WPF
     /// </summary>
     public partial class BasketWindow : Window, INotifyPropertyChanged
     {
-        public BasketWindow()
+        private DishDTO selectedDish;
+        
+        public List<CategoryDTO> Categories { get; set; }
+        
+
+        public DishDTO SelectedDish
+        {
+            get => selectedDish;
+            set
+            {
+                selectedDish = value;
+
+            }
+        }
+
+        public BasketWindow(DishDTO dish)
         {
             InitializeComponent();
+            SelectedDish = dish;
+
             DataContext = this;
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        void Signal(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
+        public void Signal([CallerMemberName] string prop = null) =>
+           PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {

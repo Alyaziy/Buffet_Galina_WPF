@@ -25,20 +25,44 @@ namespace Buffet_Galina_WPF
     public partial class MainWindow : Window, INotifyPropertyChanged
     {
         public ObservableCollection<DishDTO> Dishes { get; set; }
-        public DishDTO SelectedDish { get; set; }
-        
+        public List<CategoryDTO> Categories { get; set; }
+
+        private CategoryDTO selectedCategory;
+        public DishDTO selectedDish { get; set; }
+
+        public DishDTO SelectedDish
+        {
+            get => selectedDish;
+            set
+            {
+                selectedDish = value;
+
+            }
+        }
+
+        //public CategoryDTO SelectedCategory
+        //{
+        //    get => selectedCategory;
+        //    set
+        //    {
+        //        selectedCategory = value;
+        //        Search();
+        //    }
+        //}
+
         public MainWindow()
         {
 
             InitializeComponent();
             DataContext = this;
             LoadDishes();
+            LoadCategories();
             LoadDefaultImage();
-
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
-        
+
+       
 
         private async Task LoadDishes()
         {
@@ -62,9 +86,17 @@ namespace Buffet_Galina_WPF
             defaultImage = new byte[stream.Stream.Length];
             stream.Stream.Read(defaultImage, 0, defaultImage.Length);
         }
+
+        private async Task LoadCategories()
+        {
+            var client = new Client();
+            Categories = await client.GetCategories();
+            
+        }
+
         private void Basket_Click(object sender, RoutedEventArgs e)
         {
-            new BasketWindow().Show();
+            new BasketWindow(SelectedDish).Show();
             Close();
             
         }
@@ -74,5 +106,22 @@ namespace Buffet_Galina_WPF
             new LoginWindow().Show();
             Close();
         }
+
+        //private int _quantity = 0;
+
+        //private void IncrementButton_Click(object sender, RoutedEventArgs e)
+        //{
+        //    _quantity++;
+        //    QuantityTextBlock.Text = $"- {_quantity} +";
+        //}
+
+        private void AddBasket_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+            SelectedDish = b.Tag as DishDTO;
+            new BasketWindow(SelectedDish).ShowDialog();
+            LoadDishes();
+        }
+
     }
 }

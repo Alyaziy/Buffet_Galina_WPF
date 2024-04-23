@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Главная страница" MinHeight="700" MinWidth="900" Background="#FF326D">
     <Grid Background="#FF326D" >
         <Grid.RowDefinitions>
@@ -17,10 +18,9 @@
 
         <StackPanel Grid.Row="0" Background="White" Grid.RowSpan="2" >
             <Image Source="Images/header3.png" Height="119" Width="372"/>
-
-            <!--<TextBlock Text= "Buffet Galina" FontSize="31" HorizontalAlignment="Center"  Foreground="Black"/>-->
-
         </StackPanel>
+
+        
 
         <StackPanel Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Right" >
             <Button Grid.Row="0" Background="White" Margin="0 5 30 0" BorderThickness="0" Click="Basket_Click">
@@ -33,6 +33,15 @@
                 <Image Source="Images/navigation.png" Height="100" Width="100"  />
             </Button>
         </StackPanel>
+
+        <StackPanel Grid.Row="0" Orientation="Vertical" Width="100" HorizontalAlignment="Left" Margin="150 10 0 0" >
+            <Label Content="Категории" Foreground="#BC22A2"/>
+            <ComboBox Background="#FFE0EF" ItemsSource="{Binding Categories}"
+                      DisplayMemberPath="Title"
+                      SelectedItem="{Binding SelectedCategories,
+                UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+        
         <DataGrid CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False" Background="#FF326D" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Dishes}" SelectedItem="{Binding SelectedDish}" SelectionMode="Single">
             <DataGrid.Columns>
@@ -43,34 +52,26 @@
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
                                     <ColumnDefinition/>
-                                    <ColumnDefinition Width="Auto"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                                    <Image MaxWidth="300" Source="{Binding Image}" Stretch="UniformToFill"/>
+                                    <Image Width="300" Height="200" Source="{Binding Image}" Stretch="Fill"/>
                                 </Border>
-                                <Border Width="300" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
-                                    <StackPanel HorizontalAlignment="Right">
+                                <Border Width="700" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                    <StackPanel HorizontalAlignment="Right" >
                                         <TextBlock  Text="{Binding Title,
-                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
+                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
                                         <TextBlock Text="{Binding Price,
-                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
+                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
+                                        <TextBlock Text="{Binding Categories,
+                                        StringFormat='Категория: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
+                                        <Button Content="Выбрать" Tag="{Binding}" Click="AddBasket_Click" Width="150" Height="30" Margin="0 130 0 0" Foreground="#BC22A2" Background="#FFE0EF"/>
                                     </StackPanel>
                                 </Border>
-                                
                             </Grid>
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
             </DataGrid.Columns>
         </DataGrid>
-
-        <!--<DataGrid Grid.Row="2" AutoGenerateColumns="False" Background="Transparent" ItemsSource="{Binding Dishes}" SelectedItem="{Binding SelectedDish}" SelectionMode="Single">
-            <DataGrid.Columns>-->
-
-        <!--<DataGridTextColumn Binding="{Binding Title}"/>
-                <DataGridTextColumn Binding="{Binding Price}"/>-->
-
-        <!--</DataGrid.Columns>-->
-        <!--</DataGrid>-->
     </Grid>
 </Window>

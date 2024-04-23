@@ -25,7 +25,18 @@ namespace Buffet_Galina_WPF
     {
         public ObservableCollection<DishDTO> Dishes { get; set; }
         public AdminDTO Admin { get; set; }
-        public DishDTO SelectedDish { get; set; }
+        public DishDTO selectedDish { get; set; }
+
+        public DishDTO SelectedDish
+        {
+            get => selectedDish;
+            set
+            {
+                selectedDish = value;
+
+            }
+        }
+
         public AdminWindow(AdminDTO admin)
         {
             InitializeComponent();
@@ -35,6 +46,8 @@ namespace Buffet_Galina_WPF
             LoadDefaultImage();
 
         }
+
+        
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private async Task LoadDishes()
@@ -67,20 +80,29 @@ namespace Buffet_Galina_WPF
             Close();
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private async void Add_Click(object sender, RoutedEventArgs e)
         {
-
+            new AddDish(Admin).ShowDialog();
+            await LoadDishes();
         }
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-
+            if(SelectedDish==null)
+            {
+                MessageBox.Show("Выберите блюдо!");
+                return;
+            }
+            new EditDish(Admin, SelectedDish).ShowDialog();
+            LoadDishes();
+            
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
         {
             await Client.Instance.DeleteDish(SelectedDish.Id);
             await LoadDishes();
+
         }
     }
 }

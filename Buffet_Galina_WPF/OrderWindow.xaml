@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
-        Title="Заказ" MinHeight="450" MinWidth="600" MaxHeight="455" MaxWidth="605" Background="#FF326D">
+        WindowStartupLocation="CenterScreen"
+        Title="Вывод номера заказа" MinHeight="450" MinWidth="600" MaxHeight="455" MaxWidth="605" Background="#FF326D">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="0"/>

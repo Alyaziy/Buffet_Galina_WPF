@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Корзина" MinHeight="750" MinWidth="800" MaxHeight="750" MaxWidth="800" Background="#FF326D">
     <Grid>
         <Grid.RowDefinitions>
@@ -13,6 +14,11 @@
             <RowDefinition/>
             <RowDefinition Height="75"/>
         </Grid.RowDefinitions>
+
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            
+        </Grid.ColumnDefinitions>
 
 
 
@@ -25,6 +31,22 @@
 
         <StackPanel Grid.Row="1" Orientation="Horizontal">
             <Label  FontSize="30" Foreground="#BC22A2" FontFamily="./#Aboreto-Regular" Margin="25 15 0 15" VerticalContentAlignment="Center">Ваш заказ</Label>
+        </StackPanel>
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal">
+            <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
+                <Image Width="150" Height="200" Source="{Binding SelectedDish.Image}" Stretch="Fill"/>
+            </Border>
+            <Border Width="620" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                <StackPanel HorizontalAlignment="Right" >
+                    <TextBlock  Text="{Binding SelectedDish.Title,
+                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
+                    <TextBlock Text="{Binding SelectedDish.Price,
+                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
+                    <TextBlock Text="{Binding SelectedDish.CategoryId, StringFormat='Категория: {0}'}" FontStyle="Italic" Foreground="#FFE0EF"/>
+
+                </StackPanel>
+            </Border>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Vertical" >

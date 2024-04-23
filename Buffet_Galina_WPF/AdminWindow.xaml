@@ -5,6 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
+        WindowStartupLocation="CenterScreen"
         Title="Страница администратора" MinHeight="700" MinWidth="900" Background="#FF326D" >
     <Grid>
         <Grid.RowDefinitions>
