@@ -41,7 +41,25 @@
                     <TextBlock Text="Цена" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
                     <TextBox Text="{Binding DishDTO.Price}"/>
                     <TextBlock Text="Категория" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <ComboBox ItemsSource="{Binding Categories}" DisplayMemberPath="StyTitle" SelectedItem="{Binding SelectedCategories}"/>
+                    <ComboBox ItemsSource="{Binding Categories}" DisplayMemberPath="Title" SelectedItem="{Binding SelectedCategories}"/>
+                    <Grid>
+                        <TextBlock Text="Все продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left" />
+                        <TextBlock Text="Выбранные продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Right" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Height="150" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectProductAdd}" Grid.Column="0" DisplayMemberPath="Title"/>
+                        <ListBox Height="150" ItemsSource="{Binding SelectedProducts}" SelectedItem="{Binding SelectProductRemove}" Grid.Column="2" DisplayMemberPath="Title"/>
+                        <StackPanel  Grid.Column="1" VerticalAlignment="Center">
+                            <Button Content="->" Click="AddPro_Click" />
+                            <Button Content="&lt;-" Click="RemovePro_Click"/>
+                            <Button Content="Удалить всё" Click="Remove_Click"/>
+                        </StackPanel>
+                    </Grid>
                 </StackPanel>
             </Border>
         </StackPanel>

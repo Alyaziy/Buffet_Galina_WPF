@@ -23,7 +23,9 @@ namespace Buffet_Galina_WPF
     /// </summary>
     public partial class AdminWindow : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<DishDTO> Dishes { get; set; }
+        public ObservableCollection<DishDTO> Dishes { 
+            get => dishes; 
+            set { dishes = value; Signal(nameof(Dishes)); } }
         public AdminDTO Admin { get; set; }
         public DishDTO selectedDish { get; set; }
 
@@ -33,7 +35,6 @@ namespace Buffet_Galina_WPF
             set
             {
                 selectedDish = value;
-
             }
         }
 
@@ -42,12 +43,11 @@ namespace Buffet_Galina_WPF
             InitializeComponent();
             this.Admin = admin;
             DataContext = this;
-            LoadDishes();
             LoadDefaultImage();
-
+            LoadDishes();
         }
 
-        
+
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private async Task LoadDishes()
@@ -66,6 +66,8 @@ namespace Buffet_Galina_WPF
         }
 
         byte[] defaultImage;
+        private ObservableCollection<DishDTO> dishes;
+
         private void LoadDefaultImage()
         {
             var stream = Application.GetResourceStream(new Uri("Images\\picture.png", UriKind.Relative));
@@ -88,14 +90,13 @@ namespace Buffet_Galina_WPF
 
         private void Edit_Click(object sender, RoutedEventArgs e)
         {
-            if(SelectedDish==null)
+            if (SelectedDish == null)
             {
                 MessageBox.Show("Выберите блюдо!");
                 return;
             }
             new EditDish(Admin, SelectedDish).ShowDialog();
             LoadDishes();
-            
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)

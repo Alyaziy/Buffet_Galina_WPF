@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="Страница редактирования" Height="450" Width="800" >
+        Title="Страница редактирования" MinHeight="450" MinWidth="800" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="110" />
@@ -34,19 +34,40 @@
         </StackPanel>
 
         <StackPanel  Grid.Row="1" Background="#FF326D" >
-            <Border BorderThickness="1" BorderBrush="Black" Height="300" Margin="15" Padding="5" Grid.Row="1" Background="#FF326D" >
+            <Border BorderThickness="1" BorderBrush="Black" Margin="15" Padding="5" Grid.Row="1" Background="#FF326D" >
                 <StackPanel Background="#FF326D"  >
                     <TextBlock Text="Название" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
                     <TextBox Text="{Binding SelectedDish.Title}"/>
                     <TextBlock Text="Цена" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
                     <TextBox Text="{Binding SelectedDish.Price}"/>
                     <TextBlock Text="Категория" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategory}" DisplayMemberPath="Title"/>
-                    <TextBlock Text="Продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left" />
-                    <ComboBox ItemsSource="{Binding Products}" SelectedItem="{Binding SelectedProduct}" DisplayMemberPath="Title"/>
+                    <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategories}" DisplayMemberPath="Title"/>
+                    <Grid>
+                    <TextBlock Text="Все продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left" />
+                    <TextBlock Text="Выбранные продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Right" />
+                    </Grid>
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <ListBox Height="150" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectProductAdd}" Grid.Column="0" DisplayMemberPath="Title"/>
+                        <ListBox Height="150" ItemsSource="{Binding SelectedProducts}" SelectedItem="{Binding SelectProductRemove}" Grid.Column="2" DisplayMemberPath="Title"/>
+                        <StackPanel  Grid.Column="1" VerticalAlignment="Center">
+                            <Button Content="->" Click="AddPro_Click" />
+                            <Button Content="&lt;-" Click="RemovePro_Click"/>
+                            <Button Content="Удалить всё" Click="Remove_Click"/>
+                        </StackPanel>
+                    </Grid>
+
+
                 </StackPanel>
             </Border>
+
         </StackPanel>
+
+
 
         <StackPanel Grid.Column="1" Grid.Row="1" Background="#FF326D">
             <Border BorderThickness="1" BorderBrush="Black" Margin="15" Padding="5" Background="White">

@@ -3,6 +3,7 @@ using Buffet_Galina_WPF.DTO;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -29,8 +30,8 @@ namespace Buffet_Galina_WPF
         public AdminDTO Admin { get; set; }
         public List<ProductDTO> Products { get; set; }
 
-        private ProductDTO selectedProduct;
-        public ProductDTO SelectedProducts
+        private ObservableCollection<ProductDTO> selectedProduct;
+        public ObservableCollection<ProductDTO> SelectedProducts
         {
             get => selectedProduct;
             set
@@ -39,6 +40,9 @@ namespace Buffet_Galina_WPF
                 Signal();
             }
         }
+
+        public ProductDTO SelectProductAdd { get; set; }
+        public ProductDTO SelectProductRemove { get; set; }
 
 
         private CategoryDTO selectedCategory;
@@ -75,7 +79,7 @@ namespace Buffet_Galina_WPF
             SelectedDish = dish;
             this.Admin = admin;
             LoadCategories();
-            //LoadProducts();
+            LoadProducts();
             DataContext = this;
         }
 
@@ -89,14 +93,14 @@ namespace Buffet_Galina_WPF
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Categories)));
         }
 
-        //private async Task LoadProducts()
-        //{
-        //    var client = new Client();
-        //    Products = await client.GetProducts();
-        //    SelectedProducts = Products.FirstOrDefault(s => s.Id == SelectedDish.Products);
+        private async Task LoadProducts()
+        {
+            var client = new Client();
+            Products = await client.GetProducts();
+            SelectedProducts = new ObservableCollection<ProductDTO>( SelectedDish.Products);
 
-        //    PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Products)));
-        //}
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Products)));
+        }
 
 
         private void SaveClose_Click(object sender, RoutedEventArgs e)
@@ -106,8 +110,9 @@ namespace Buffet_Galina_WPF
                 MessageBox.Show("Не все поля заполнены!!");
                 return;
             }
-            SelectedDish.CategoryId = SelectedDish.Id;
+            SelectedDish.CategoryId = SelectedDish.CategoryId;
             SelectedDish.Category = SelectedDish.Title;
+            SelectedDish.Products = SelectedProducts.ToList();
             Client.Instance.EditDish(SelectedDish, SelectedDish.Id);
             Close();
         }
@@ -138,6 +143,35 @@ namespace Buffet_Galina_WPF
                 SelectedDish.Image = File.ReadAllBytes(newFile);
                 Signal("SelectedDish");
             }
+        }
+
+        private void AddPro_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectProductAdd != null) 
+            {
+                SelectedProducts.Add(SelectProductAdd);
+            }
+            else 
+            {
+                MessageBox.Show("Выберите продукт");
+            }
+        }
+
+        private void RemovePro_Click(object sender, RoutedEventArgs e)
+        {
+            if(SelectProductRemove!= null)
+            {
+                SelectedProducts.Remove(SelectProductRemove);
+            }
+            else
+            {
+                MessageBox.Show("Выберите продукт");
+            }
+        }
+
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedProducts.Clear();
         }
     }
 }

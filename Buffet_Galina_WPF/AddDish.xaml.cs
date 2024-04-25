@@ -3,6 +3,7 @@ using Buffet_Galina_WPF.DTO;
 using Microsoft.Win32;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
@@ -29,6 +30,23 @@ namespace Buffet_Galina_WPF
         public DishDTO dishDTO = new DishDTO();
         public DishDTO DishDTO { get => dishDTO; set => dishDTO = value; }
 
+        public List<ProductDTO> Products { get; set; }
+
+        private ObservableCollection<ProductDTO> selectedProduct =new();
+        public ObservableCollection<ProductDTO> SelectedProducts
+        {
+            get => selectedProduct;
+            set
+            {
+                selectedProduct = value;
+                Signal();
+            }
+        }
+
+        public ProductDTO SelectProductAdd { get; set; }
+        public ProductDTO SelectProductRemove { get; set; }
+
+
         public List<CategoryDTO> Categories { get; set; }
         public CategoryDTO SelectedCategories { get; set; }
 
@@ -37,6 +55,7 @@ namespace Buffet_Galina_WPF
             InitializeComponent();
             this.Admin = admin;
             LoadCategories();
+            LoadProducts();
             DataContext = this;
         }
 
@@ -50,6 +69,13 @@ namespace Buffet_Galina_WPF
             Categories = await client.GetCategories();
 
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Categories)));
+        }
+
+        private async Task LoadProducts()
+        {
+            var client = new Client();
+            Products = await client.GetProducts();
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Products)));
         }
 
         private void Back_Click(object sender, RoutedEventArgs e)
@@ -86,6 +112,35 @@ namespace Buffet_Galina_WPF
                 DishDTO.Image = File.ReadAllBytes(newFile);
                 Signal("DishDTO");
             }
+        }
+
+        private void AddPro_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectProductAdd != null)
+            {
+                SelectedProducts.Add(SelectProductAdd);
+            }
+            else
+            {
+                MessageBox.Show("Выберите продукт");
+            }
+        }
+
+        private void RemovePro_Click(object sender, RoutedEventArgs e)
+        {
+            if (SelectProductRemove != null)
+            {
+                SelectedProducts.Remove(SelectProductRemove);
+            }
+            else
+            {
+                MessageBox.Show("Выберите продукт");
+            }
+        }
+
+        private void Remove_Click(object sender, RoutedEventArgs e)
+        {
+            SelectedProducts.Clear();   
         }
     }
 }

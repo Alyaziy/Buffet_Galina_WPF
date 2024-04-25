@@ -26,8 +26,7 @@ namespace Buffet_Galina_WPF
     {
         public ObservableCollection<DishDTO> Dishes { get; set; }
         public List<CategoryDTO> Categories { get; set; }
-
-        private CategoryDTO selectedCategory;
+        public CategoryDTO SelectedCategories { get; set; }
         public DishDTO selectedDish { get; set; }
 
         public DishDTO SelectedDish
@@ -40,15 +39,8 @@ namespace Buffet_Galina_WPF
             }
         }
 
-        //public CategoryDTO SelectedCategory
-        //{
-        //    get => selectedCategory;
-        //    set
-        //    {
-        //        selectedCategory = value;
-        //        Search();
-        //    }
-        //}
+
+        
 
         public MainWindow()
         {
@@ -106,14 +98,6 @@ namespace Buffet_Galina_WPF
             new LoginWindow().Show();
             Close();
         }
-
-        //private int _quantity = 0;
-
-        //private void IncrementButton_Click(object sender, RoutedEventArgs e)
-        //{
-        //    _quantity++;
-        //    QuantityTextBlock.Text = $"- {_quantity} +";
-        //}
 
         private void AddBasket_Click(object sender, RoutedEventArgs e)
         {
