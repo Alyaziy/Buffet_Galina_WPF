@@ -28,6 +28,14 @@
             </Button>
         </StackPanel>
 
+        <StackPanel Grid.Row="0" Orientation="Vertical" Width="100" HorizontalAlignment="Left" Margin="150 10 0 0" >
+            <Label Content="Категории" Foreground="#BC22A2"/>
+            <ComboBox Background="#FFE0EF" ItemsSource="{Binding Categories}"
+                      DisplayMemberPath="Title"
+                      SelectedItem="{Binding SelectedCategories,
+                UpdateSourceTrigger=PropertyChanged}" />
+        </StackPanel>
+
 
         <DataGrid CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False" Background="#FF326D" 
                   ItemsSource="{Binding Dishes}" SelectedItem="{Binding SelectedDish}" SelectionMode="Single">

@@ -1,4 +1,5 @@
-﻿using Buffet_Galina_WPF.DTO;
+﻿using Buffet_Galina_WPF.API;
+using Buffet_Galina_WPF.DTO;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
@@ -22,25 +23,43 @@ namespace Buffet_Galina_WPF
     /// </summary>
     public partial class BasketWindow : Window, INotifyPropertyChanged
     {
-        private DishDTO selectedDish;
-        
         public List<CategoryDTO> Categories { get; set; }
-        
 
-        public DishDTO SelectedDish
+        private OrderDTO selectedOrder;
+        private NewShit selectedShit;
+
+        public OrderDTO SelectedOrder
         {
-            get => selectedDish;
+            get => selectedOrder;
             set
             {
-                selectedDish = value;
-
+                selectedOrder = value;
             }
         }
 
-        public BasketWindow(DishDTO dish)
+        public NewShit SelectedShit 
+        { 
+            get => selectedShit; 
+            set
+            {
+                selectedShit = value;
+                Signal();
+            }
+            
+        }
+
+        public List<NewShit> Items { get; set; }
+
+        public int Count { get => Items.Sum(s => s.Count); }
+        public int Price { get => Items.Sum(s => s.Price); }
+
+
+        public BasketWindow(OrderDTO order)
         {
             InitializeComponent();
-            SelectedDish = dish;
+            SelectedOrder = order;
+
+            Items = SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit { /*Price = s.Sum(),*/ Count = s.Count(), Dish = s.First() }).ToList();
 
             DataContext = this;
         }
@@ -57,8 +76,39 @@ namespace Buffet_Galina_WPF
 
         private void Order_Click(object sender, RoutedEventArgs e)
         {
-            new OrderWindow().Show();
+            new OrderWindow(SelectedOrder).Show();
             Close();
         }
+
+        private void Add_Click(object sender, RoutedEventArgs e)
+        {
+
+            Button b = sender as Button;
+            SelectedShit = b.Tag as NewShit;
+        }
+
+        private async void Delete_Click(object sender, RoutedEventArgs e)
+        {
+            Button b = sender as Button;
+            SelectedShit = b.Tag as NewShit;
+            try
+            {
+                await Client.Instance.DeleteOrder(SelectedShit.Dish.Id);
+                SelectedOrder.DishDTOs.Remove(SelectedShit.Dish);
+            }
+            catch (Exception ex)
+            {
+
+            }
+            
+        }
     }
+
+    public class NewShit
+    {
+        public int Count { get; internal set; }
+        public DishDTO Dish { get; internal set; }
+        public int Price { get; internal set; }
+    }
+
 }

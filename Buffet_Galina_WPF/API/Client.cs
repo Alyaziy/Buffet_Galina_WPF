@@ -4,6 +4,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
+using System.Net.Http.Json;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
@@ -62,6 +63,30 @@ namespace Buffet_Galina_WPF.API
                 Console.WriteLine(ex.Message);
                 return null;
             }            
+        }
+
+        public async Task<List<DishDTO>> GetDish(int category)
+
+        {
+            try
+            {
+                var response = await httpClient.GetAsync("Admin/GetDishByCategory?category="+category);
+                if (response.IsSuccessStatusCode)
+                {
+                    var content = await response.Content.ReadAsStringAsync();
+                    return JsonConvert.DeserializeObject<List<DishDTO>>(content);
+                }
+                else
+                {
+                    throw new Exception($"Error: {response.ReasonPhrase}");
+                }
+            }
+            catch (Exception ex)
+            {
+                // Обработка исключений
+                Console.WriteLine(ex.Message);
+                return null;
+            }
         }
 
         public async Task<List<CategoryDTO>> GetCategories()
@@ -134,29 +159,6 @@ namespace Buffet_Galina_WPF.API
             }
         }
 
-        //public async Task<List<CategoryDTO>> GetCategory()
-        //{
-        //    try
-        //    {
-        //        var response = await httpClient.GetAsync("ZType/GetZTypes");
-        //        if (response.IsSuccessStatusCode)
-        //        {
-        //            var content = await response.Content.ReadAsStringAsync();
-        //            return JsonConvert.DeserializeObject<List<CategoryDTO>>(content);
-        //        }
-        //        else
-        //        {
-        //            throw new Exception($"Error: {response.ReasonPhrase}");
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        // Обработка исключений
-        //        Console.WriteLine(ex.Message);
-        //        return null;
-        //    }
-        //}
-
         public async Task AddDishAsync(DishDTO dish)
         {
             using (var client = new HttpClient())
@@ -170,7 +172,6 @@ namespace Buffet_Galina_WPF.API
                 }
             }
         }
-
 
         public async Task<DishDTO> EditDish(DishDTO dish, int id)
         {
@@ -193,7 +194,40 @@ namespace Buffet_Galina_WPF.API
 
         }
 
+        public async Task AddOrderAsync(OrderDTO order)
+        {
+            //using (var client = new HttpClient())
+            //{
+              //var jsonContent = JsonConvert.SerializeObject(order);
+             //var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+           // HttpResponseMessage response = await httpClient.GetAsync("Admin/AddOrder", order);
+            var response = await httpClient.GetAsync("Admin/AddOrder");
+                if (!response.IsSuccessStatusCode)
+                {
+                    throw new Exception("Не удалось добавить заказ.");
+                }
+            else
+            {
+                order.Id = int.Parse( await response.Content.ReadAsStringAsync());
+            }
+            //}
+        }
 
+        public async Task AddDishToOrder(OrderDTO order, DishDTO dish, int count)
+        {
+            var jsonContent = JsonConvert.SerializeObject(dish);
+            var httpContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            using HttpResponseMessage response = await httpClient.PutAsync($"Admin/{order.Id}/{dish.Id}/{count}", null);
+            response.EnsureSuccessStatusCode();
+            // MessageBox.Show(response.StatusCode.ToString());
+            return  ;
+        }
+
+        public async Task DeleteOrder(int id)
+        {
+            using HttpResponseMessage response = await httpClient.DeleteAsync("Admin/DeleteOrder/" + id );
+            response.EnsureSuccessStatusCode();
+        }
 
 
         static Client instance = new();

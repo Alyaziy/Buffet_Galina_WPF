@@ -23,10 +23,23 @@ namespace Buffet_Galina_WPF
     /// </summary>
     public partial class AdminWindow : Window, INotifyPropertyChanged
     {
-        public ObservableCollection<DishDTO> Dishes { 
-            get => dishes; 
-            set { dishes = value; Signal(nameof(Dishes)); } }
+        public ObservableCollection<DishDTO> Dishes
+        {
+            get => dishes;
+            set { dishes = value; Signal(nameof(Dishes)); }
+        }
         public AdminDTO Admin { get; set; }
+
+        public List<CategoryDTO> Categories { get; set; }
+        public CategoryDTO SelectedCategories
+        { 
+            get => selectedCategory; 
+            set
+            {
+                selectedCategory = value;
+                LoadDishes(SelectedCategories);
+            }
+        }
         public DishDTO selectedDish { get; set; }
 
         public DishDTO SelectedDish
@@ -45,6 +58,7 @@ namespace Buffet_Galina_WPF
             DataContext = this;
             LoadDefaultImage();
             LoadDishes();
+            LoadCategories();
         }
 
 
@@ -65,14 +79,44 @@ namespace Buffet_Galina_WPF
             PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Dishes)));
         }
 
+        private async Task LoadDishes(CategoryDTO category)
+        {
+            Client client = new Client();
+            if (category == null || category.Id == 0)
+            {
+                LoadDishes(client);
+                return;
+            }
+            Dishes = new ObservableCollection<DishDTO>(await client.GetDish(category.Id));
+            foreach (var d in Dishes)
+                if (d.Image == null)
+                    d.Image = defaultImage;
+            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Dishes)));
+        }
+
         byte[] defaultImage;
         private ObservableCollection<DishDTO> dishes;
+        private CategoryDTO selectedCategory;
 
         private void LoadDefaultImage()
         {
             var stream = Application.GetResourceStream(new Uri("Images\\picture.png", UriKind.Relative));
             defaultImage = new byte[stream.Stream.Length];
             stream.Stream.Read(defaultImage, 0, defaultImage.Length);
+        }
+
+        private async Task LoadCategories()
+        {
+            try
+            {
+                var client = new Client();
+                Categories = await client.GetCategories();
+                Categories.Insert(0, new CategoryDTO { Title = "Все категории" });
+                SelectedCategories = Categories.First();
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Categories)));
+            }
+            catch { }
+
         }
         void Signal(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 

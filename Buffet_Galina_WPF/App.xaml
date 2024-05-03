@@ -4,5 +4,6 @@
              xmlns:local="clr-namespace:Buffet_Galina_WPF"
              StartupUri="MainWindow.xaml">
 
+
     
 </Application>

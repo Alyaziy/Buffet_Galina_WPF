@@ -80,14 +80,27 @@ namespace Buffet_Galina_WPF
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new AdminWindow(Admin).Show();
+            new AdminWindow(Admin).ShowDialog();
             Close();
         }
 
         private async void SaveClose_Click(object sender, RoutedEventArgs e)
         {
-
-            await Client.Instance.AddDishAsync(DishDTO);
+            if (dishDTO.Title == null || SelectedCategories == null || dishDTO.Price == null || dishDTO.Image == null || SelectedProducts == null)
+            {
+                MessageBox.Show("Не все поля заполнены!!");
+                return;
+            }
+            
+            await Client.Instance.AddDishAsync(new DishDTO
+            {
+                Title= dishDTO.Title,
+                CategoryId = SelectedCategories.Id,
+                Category = SelectedCategories.Title,
+                Price = dishDTO.Price,
+                Image= dishDTO.Image,
+                Products = SelectedProducts.ToList()
+            });
 
             Close();
         }

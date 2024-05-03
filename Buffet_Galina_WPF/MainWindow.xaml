@@ -65,6 +65,7 @@
                                         <TextBlock Text="{Binding Categories,
                                         StringFormat='Категория: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
                                         <Button Content="Выбрать" Tag="{Binding}" Click="AddBasket_Click" Width="150" Height="30" Margin="0 130 0 0" Foreground="#BC22A2" Background="#FFE0EF"/>
+                                        <Button Content="Подробнее..." Tag="{Binding}" Click="Description_Click" Width="150" Height="30"  Foreground="#BC22A2" Background="#FFE0EF"/>
                                     </StackPanel>
                                 </Border>
                             </Grid>

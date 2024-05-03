@@ -17,7 +17,7 @@
 
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
-            
+
         </Grid.ColumnDefinitions>
 
 
@@ -33,20 +33,48 @@
             <Label  FontSize="30" Foreground="#BC22A2" FontFamily="./#Aboreto-Regular" Margin="25 15 0 15" VerticalContentAlignment="Center">Ваш заказ</Label>
         </StackPanel>
 
-        <StackPanel Grid.Row="2" Orientation="Horizontal">
-            <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
-                <Image Width="150" Height="200" Source="{Binding SelectedDish.Image}" Stretch="Fill"/>
-            </Border>
-            <Border Width="620" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
-                <StackPanel HorizontalAlignment="Right" >
-                    <TextBlock  Text="{Binding SelectedDish.Title,
-                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
-                    <TextBlock Text="{Binding SelectedDish.Price,
-                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
-                    <TextBlock Text="{Binding SelectedDish.CategoryId, StringFormat='Категория: {0}'}" FontStyle="Italic" Foreground="#FFE0EF"/>
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 50 15 15" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Count, StringFormat='Кол-во блюд: {0}'}" Foreground="#BC22A2" Background="#FFE0EF" FontSize="25" />
+        </StackPanel>
+        
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0 0 15 50" VerticalAlignment="Center">
+            <TextBlock Text="{Binding Price, StringFormat='Всего: {0}'}" Foreground="#BC22A2" Background="#FFE0EF" FontSize="25" />
+        </StackPanel>
 
-                </StackPanel>
-            </Border>
+
+
+        <StackPanel Grid.Row="2" Orientation="Horizontal"  >
+            <ListBox ItemsSource="{Binding Items}" SelectedItem="{Binding SelectedShit}" Width="800" Background="#FF326D" >
+                <ListBox.ItemTemplate>
+                    <DataTemplate>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                                <ColumnDefinition Width="Auto"/>
+                            </Grid.ColumnDefinitions>
+                            <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
+                                <Image Width="150" Height="200" Source="{Binding Dish.Image}" Stretch="Fill"/>
+                            </Border>
+                            <Border Width="520" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
+                                <StackPanel HorizontalAlignment="Right" >
+                                    <TextBlock  Text="{Binding Dish.Title,
+                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
+                                   <TextBlock Text="{Binding Dish.Category, StringFormat='Категория: {0}'}" FontStyle="Italic" Foreground="#FFE0EF"/>
+                                    <TextBlock Text="{Binding Dish.Price, StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontStyle="Italic" Foreground="#FFE0EF"/>
+                                </StackPanel>
+                            </Border>
+                            <Border Padding="5" Grid.Column="2" BorderBrush="Black" BorderThickness="0.5">
+                                <TextBlock Text="{Binding Count, StringFormat=Кол-во: {0}}"/>
+                            </Border>
+                            <StackPanel Grid.Column="3" Orientation="Vertical">
+                                <Button Content="Удалить" Tag="{Binding}" Click="Delete_Click" Width="Auto" Height="Auto" Foreground="#BC22A2" Background="#FFE0EF"/>
+                                <Button Content="Добавить" Tag="{Binding}" Click="Add_Click" Width="Auto" Height="Auto" Foreground="#BC22A2" Background="#FFE0EF"/>
+                            </StackPanel>
+                        </Grid>
+                    </DataTemplate>
+                </ListBox.ItemTemplate>
+            </ListBox>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Vertical" >
@@ -60,6 +88,6 @@
                 <Image Source="Images/order.png" Height="75" Width="85"/>
             </Button>
         </StackPanel>
-        
+
     </Grid>
 </Window>
