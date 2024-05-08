@@ -229,6 +229,12 @@ namespace Buffet_Galina_WPF.API
             response.EnsureSuccessStatusCode();
         }
 
+        public async Task DeleteDishInOrder(int id)
+        {
+            using HttpResponseMessage response = await httpClient.DeleteAsync("Admin/DeleteDishInOrder/" + id);
+            response.EnsureSuccessStatusCode();
+        }
+
 
         static Client instance = new();
         public static Client Instance

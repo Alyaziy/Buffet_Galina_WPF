@@ -17,69 +17,62 @@
 
         <StackPanel Grid.Row="0" Background="White" Grid.RowSpan="2" >
             <Image Source="Images/header3.png" Height="119" Width="372"/>
-
             <!--<TextBlock Text= "Buffet Galina" FontSize="31" HorizontalAlignment="Center"  Foreground="Black"/>-->
-
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" >
-            <Button Grid.Row="0" Background="White" Margin="0 5 30 0" BorderThickness="0" Click="Back_Click">
+            <Button Grid.Row="0" Background="White" Margin="0 0 30 0" BorderThickness="0" Click="Back_Click">
                 <Image Source="Images/arrow1.png" Height="100" Width="100"  />
             </Button>
         </StackPanel>
+        
+        <StackPanel Grid.Row="0"  VerticalAlignment="Bottom">
+            <Label Content="Вернуться" HorizontalAlignment="Left"  Margin="0 0 0 0" FontSize="20" Foreground="#BC22A2" FontWeight="Bold" />
+        </StackPanel>
 
-        <StackPanel Grid.Row="0" Orientation="Vertical" Width="100" HorizontalAlignment="Left" Margin="150 10 0 0" >
-            <Label Content="Категории" Foreground="#BC22A2"/>
-            <ComboBox Background="#FFE0EF" ItemsSource="{Binding Categories}"
+        <StackPanel Grid.Row="0" Orientation="Vertical" Width="Auto" HorizontalAlignment="Left" Margin="150 10 0 0" >
+            <Label Content="Категории" FontSize="20" Foreground="#BC22A2"/>
+            <ComboBox Background="#FFE0EF" FontSize="20" ItemsSource="{Binding Categories}"
                       DisplayMemberPath="Title"
                       SelectedItem="{Binding SelectedCategories,
                 UpdateSourceTrigger=PropertyChanged}" />
         </StackPanel>
 
 
-        <DataGrid CanUserAddRows="False" Grid.Row="1" AutoGenerateColumns="False" Background="#FF326D" 
+        <ListBox  Grid.Row="1" Background="#FF326D" HorizontalContentAlignment="Stretch"
                   ItemsSource="{Binding Dishes}" SelectedItem="{Binding SelectedDish}" SelectionMode="Single">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Меню">
-                    <DataGridTemplateColumn.CellTemplate>
+            <ListBox.ItemTemplate>
                         <DataTemplate>
                             <Grid Background="#FF326D">
                                 <Grid.ColumnDefinitions>
                                     <ColumnDefinition Width="Auto"/>
-                                    <ColumnDefinition/>
+                                    <ColumnDefinition Width="*"/>
                                 </Grid.ColumnDefinitions>
                                 <Border Padding="5" Grid.Column="0" BorderBrush="Black" BorderThickness="0.5">
                                     <Image MaxWidth="300" Source="{Binding Image}" Stretch="UniformToFill"/>
                                 </Border>
-                                <Border Width="300" Padding="5" BorderBrush="Black" Margin="3" HorizontalAlignment="Left" BorderThickness="0.5" Grid.Column="1">
-                                    <StackPanel HorizontalAlignment="Right">
+                                <Border  Padding="5" BorderBrush="Black" Margin="3" BorderThickness="0.5" Grid.Column="1">
+                                    <StackPanel HorizontalAlignment="Center">
                                         <TextBlock  Text="{Binding Title,
-                                        StringFormat='Название: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
+                                        StringFormat='Название: {0}'}" FontSize="20" FontStyle="Italic" Foreground="#FFE0EF" TextWrapping="Wrap" FontWeight="Bold"/>
+                                        <TextBlock Text="{Binding Category,
+                                        StringFormat='Категория: {0}'}" FontSize="20" FontStyle="Italic" Foreground="#FFE0EF" TextWrapping="Wrap" FontWeight="Bold"/>
                                         <TextBlock Text="{Binding Price,
-                                        StringFormat='Цена: {0}'}" TextWrapping="Wrap" FontWeight="Bold"/>
-                                    </StackPanel>
+                                        StringFormat='Цена: {0}'}" FontSize="20" FontStyle="Italic" Foreground="#FFE0EF" TextWrapping="Wrap" FontWeight="Bold"/>
+                            </StackPanel>
                                 </Border>
                             </Grid>
                         </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-            </DataGrid.Columns>
-        </DataGrid>
+            </ListBox.ItemTemplate>
+        </ListBox>
 
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Top" Margin="0 20 10 0" Orientation="Horizontal" Grid.Column="3">
-            <Button Content="Добавить" Click="Add_Click" Height="30" Width="100" Foreground="#BC22A2" Background="#FFE0EF"/>
-            <Button Content="Редактировать" Click="Edit_Click" Height="30" Width="100" Foreground="#BC22A2" Background="#FFE0EF"/>
-            
-            
+            <Button Content="Добавить" Click="Add_Click" FontSize="20" Height="30" Width="Auto" Foreground="#BC22A2" Background="#FFE0EF"/>
+            <Button Content="Редактировать" Click="Edit_Click" FontSize="20" Height="30" Width="Auto" Foreground="#BC22A2" Background="#FFE0EF"/>
         </StackPanel>
 
         <StackPanel HorizontalAlignment="Right" VerticalAlignment="Bottom" Margin="0 0 10 20">
-            <Button Content="Удалить" Click="Delete_Click"  Height="30" Width="100" Foreground="#BC22A2" Background="#FFE0EF"/>
+            <Button Content="Удалить" Click="Delete_Click" FontSize="20" Height="30" Width="Auto" Foreground="#BC22A2" Background="#FFE0EF"/>
         </StackPanel>
-
-
-
-
-
     </Grid>
 </Window>

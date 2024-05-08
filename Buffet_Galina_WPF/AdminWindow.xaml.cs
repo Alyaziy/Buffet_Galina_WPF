@@ -56,12 +56,10 @@ namespace Buffet_Galina_WPF
             InitializeComponent();
             this.Admin = admin;
             DataContext = this;
-            LoadDefaultImage();
             LoadDishes();
             LoadCategories();
+            LoadDefaultImage();         
         }
-
-
 
         public event PropertyChangedEventHandler? PropertyChanged;
         private async Task LoadDishes()
@@ -116,7 +114,6 @@ namespace Buffet_Galina_WPF
                 PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(Categories)));
             }
             catch { }
-
         }
         void Signal(string prop) => PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(prop));
 
@@ -145,6 +142,11 @@ namespace Buffet_Galina_WPF
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
         {
+            if (SelectedDish == null)
+            {
+                MessageBox.Show("Выберите блюдо!");
+                return;
+            }
             await Client.Instance.DeleteDish(SelectedDish.Id);
             await LoadDishes();
 

@@ -2,6 +2,7 @@
 using Buffet_Galina_WPF.DTO;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -26,8 +27,8 @@ namespace Buffet_Galina_WPF
         public List<CategoryDTO> Categories { get; set; }
 
         private OrderDTO selectedOrder;
-        private NewShit selectedShit;
 
+        private NewShit selectedShit;
         public OrderDTO SelectedOrder
         {
             get => selectedOrder;
@@ -48,7 +49,7 @@ namespace Buffet_Galina_WPF
             
         }
 
-        public List<NewShit> Items { get; set; }
+        public ObservableCollection<NewShit> Items { get; set; }
 
         public int Count { get => Items.Sum(s => s.Count); }
         public int Price { get => Items.Sum(s => s.Price); }
@@ -58,10 +59,15 @@ namespace Buffet_Galina_WPF
         {
             InitializeComponent();
             SelectedOrder = order;
-
-            Items = SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit { /*Price = s.Sum(),*/ Count = s.Count(), Dish = s.First() }).ToList();
-
             DataContext = this;
+            if(order == null)
+            {
+                Items = new();
+                return;
+            }
+            Items = new ObservableCollection<NewShit>( SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit { Count = s.Count(), Dish = s.First(), Price = s.Sum(d => d.Price) }));
+
+            
         }
 
         public event PropertyChangedEventHandler? PropertyChanged;
@@ -70,21 +76,39 @@ namespace Buffet_Galina_WPF
 
         private void Back_Click(object sender, RoutedEventArgs e)
         {
-            new MainWindow().Show();
+            
             Close();
         }
 
         private void Order_Click(object sender, RoutedEventArgs e)
         {
-            new OrderWindow(SelectedOrder).Show();
-            Close();
+            
+            if (Items.Count() == 0)
+            { 
+                MessageBox.Show("Заказ не оформлен! Выберите блюдо!");
+                return;
+            }
+            else
+            {
+                new OrderWindow(SelectedOrder).ShowDialog();
+                Close();
+            }
+            
+
+
         }
 
-        private void Add_Click(object sender, RoutedEventArgs e)
+        private async void Add_Click(object sender, RoutedEventArgs e)
         {
 
             Button b = sender as Button;
             SelectedShit = b.Tag as NewShit;
+            await Client.Instance.AddDishToOrder(SelectedOrder, SelectedShit.Dish, Count);
+            SelectedOrder.DishDTOs.Add(SelectedShit.Dish);
+            
+            Items = new ObservableCollection<NewShit>(SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit { Count = s.Count(), Dish = s.First(), Price=s.Sum(d=>d.Price) }));
+            Signal(nameof(Price));
+            Signal(nameof(Count));
         }
 
         private async void Delete_Click(object sender, RoutedEventArgs e)
@@ -93,12 +117,16 @@ namespace Buffet_Galina_WPF
             SelectedShit = b.Tag as NewShit;
             try
             {
-                await Client.Instance.DeleteOrder(SelectedShit.Dish.Id);
+                await Client.Instance.DeleteDishInOrder(SelectedShit.Dish.Id);
                 SelectedOrder.DishDTOs.Remove(SelectedShit.Dish);
+                Items.Remove(SelectedShit);
+                Items = new ObservableCollection<NewShit>(SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit { Count = s.Count(), Dish = s.First(), Price = s.Sum(d => d.Price) }));
+                Signal(nameof(Count));
+                Signal(nameof(Price));
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
             
         }

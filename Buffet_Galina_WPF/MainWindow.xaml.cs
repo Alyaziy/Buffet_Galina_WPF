@@ -26,6 +26,8 @@ namespace Buffet_Galina_WPF
     {
         public ObservableCollection<DishDTO> Dishes { get; set; }
         public List<CategoryDTO> Categories { get; set; }
+
+        private CategoryDTO selectedCategories;
         public CategoryDTO SelectedCategories { 
             get => selectedCategories;
             set
@@ -54,8 +56,8 @@ namespace Buffet_Galina_WPF
 
             InitializeComponent();
             DataContext = this;
-            LoadDishes();
             LoadCategories();
+            LoadDishes();
             LoadDefaultImage();
 
 
@@ -95,7 +97,7 @@ namespace Buffet_Galina_WPF
         }
 
         byte[] defaultImage;
-        private CategoryDTO selectedCategories;
+        
 
         private void LoadDefaultImage()
         {
@@ -122,8 +124,8 @@ namespace Buffet_Galina_WPF
 
         private void Basket_Click(object sender, RoutedEventArgs e)
         {
-            new BasketWindow(order).Show();
-            Close();
+            new BasketWindow(order).ShowDialog();
+            
 
         }
 

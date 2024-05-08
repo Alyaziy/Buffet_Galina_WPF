@@ -44,7 +44,7 @@ namespace Buffet_Galina_WPF
         {
             InitializeComponent();
             SelectedOrder = order;
-            Items = SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit { /*Price = s.Sum(),*/ Count = s.Count(), Dish = s.First() }).ToList();
+            Items = SelectedOrder.DishDTOs.GroupBy(s => s.Title).Select(s => new NewShit {Count = s.Count(), Dish = s.First(), Price = s.Sum(d => d.Price) }).ToList();
             DataContext = this;
         }
 
@@ -63,9 +63,8 @@ namespace Buffet_Galina_WPF
             public int Id { get; internal set; }
             public int Count { get; internal set; }
             public DishDTO Dish { get; internal set; }
-            public int Price { get; internal set; }
-        }
-
-        
+            public int Price { get; internal set;}
+            
+        }        
     }
 }

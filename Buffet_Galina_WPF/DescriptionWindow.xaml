@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Описание блюда" MinHeight="450" MinWidth="600" MaxHeight="450" MaxWidth="600" Background="#FF326D" >
+        Title="Описание блюда" MinHeight="550" MinWidth="700" MaxHeight="550" MaxWidth="700" Background="#FF326D" >
     <Grid >
         <Grid.RowDefinitions>
             <RowDefinition Height="110"/>
@@ -22,8 +23,8 @@
             <Image Source="Images/header3.png" Height="119" Width="372"/>
         </StackPanel>
 
-        <StackPanel Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left"  >
-            <TextBlock Text="Подробная информация" FontSize="18" Width="150" Margin="0 20 0 0" Foreground="#BC22A2" FontFamily="./#Aboreto-Regular" TextWrapping="Wrap"/>
+        <StackPanel Grid.Row="0"  HorizontalAlignment="Left" VerticalAlignment="Center"  >
+            <TextBlock Text="Подробнее" FontSize="24" Width="Auto" Margin="15 0 0 0" FontWeight="Bold" Foreground="#BC22A2"  TextWrapping="Wrap"/>
         </StackPanel>
 
         
@@ -36,8 +37,8 @@
                 </StackPanel>
             </Border>
             <StackPanel Orientation="Vertical" >
-                <TextBlock Text="Название" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left" Margin="10 0 0 0" />
-                <TextBlock  Text="{Binding SelectedDish.Title}" Background="White" Width="200" HorizontalAlignment="Left" Margin="10 0 0 0"/>
+                <TextBlock Text="Название" FontSize="20" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left" Margin="10 0 0 0" />
+                <TextBlock  Text="{Binding SelectedDish.Title}" FontSize="20" Background="White" Width="Auto" HorizontalAlignment="Left" Margin="10 0 0 0"/>
             </StackPanel>
             
         </StackPanel>
@@ -45,13 +46,13 @@
         <StackPanel  Grid.Row="1" Grid.Column="2" Background="#FF326D" >
             <Border BorderThickness="1" BorderBrush="Black" Margin="15" Padding="5" Grid.Row="1" Background="#FF326D" >
                 <StackPanel Background="#FF326D"  >
-                    
-                    <TextBlock Text="Цена" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding SelectedDish.Price}" Background="White"/>
-                    <TextBlock Text="Категория" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <TextBlock Text="{Binding SelectedCategories.Title}" Background="White" />
-                    <TextBlock Text="Продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <ListBox Height="150" ItemsSource="{Binding SelectedProducts}" Grid.Column="2" DisplayMemberPath="Title"/>
+
+                    <TextBlock Text="Цена" Foreground="#BC22A2" FontSize="20" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding SelectedDish.Price}" FontSize="20" Background="White"/>
+                    <TextBlock Text="Категория" Foreground="#BC22A2" FontSize="20" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left"/>
+                    <TextBlock Text="{Binding SelectedCategories.Title}" FontSize="20" Background="White" />
+                    <TextBlock Text="Продукты" Foreground="#BC22A2" FontSize="20" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left"/>
+                    <ListBox Height="190" ItemsSource="{Binding SelectedProducts}" FontSize="20" Grid.Column="2" DisplayMemberPath="Title"/>
                 </StackPanel>
             </Border>
         </StackPanel>

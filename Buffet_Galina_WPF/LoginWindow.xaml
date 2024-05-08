@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Страница входа" MinHeight="400" MinWidth="400" MaxHeight="405" MaxWidth="405" Background="#FF326D"  >
+        Title="Страница входа" MinHeight="530" MinWidth="600" MaxHeight="535" MaxWidth="605" Background="#FF326D"  >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="130" />
@@ -23,24 +24,26 @@
         </StackPanel>
 
         <StackPanel Grid.Row="1" Grid.Column="1" Background="#FF326D"  >
-            <TextBlock Text="Введите Логин" Foreground="#FFE0EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="5" Height="35"/>
-            <TextBox FontSize="20" Text="Admin" Margin="5" Height="30"/>
-            <TextBlock Text="Введите Пароль" Foreground="#FFE0EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="25" Margin="5" Height="35"/>
-            <TextBox FontSize="20" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="5" Height="30" KeyDown="keyDown"/>
+            <TextBlock Text="Введите Логин" Foreground="#FFE0EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" Margin="6" Height="45"/>
+            <TextBox FontSize="30" Text="Admin" Margin="10" Height="40"/>
+            <TextBlock Text="Введите Пароль" Foreground="#FFE0EF" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="35" Margin="6" Height="45"/>
+            <TextBox FontSize="30" Text="{Binding Password, UpdateSourceTrigger=PropertyChanged}" Margin="5" Height="40" KeyDown="keyDown"/>
             <!--<Button BorderThickness="1" Background="#BC22A2" Foreground="#FFE0EF" Content="Войти" Height="35" FontSize="20" Margin="5" Width="100" Click="SignIn"/>-->
             
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Vertical" >
-            <Button  FontSize="30" Background="#FF326D" Click="Back_Click" HorizontalAlignment="Left" BorderThickness="0" Margin="0 0 0 0">
-                <Image Source="Images/arrow1.png" Height="75" Width="80"/>
+            <Button  FontSize="40" Background="#FF326D" Click="Back_Click" HorizontalAlignment="Left" HorizontalContentAlignment="Stretch" BorderThickness="0" >
+                <Image Source="Images/arrow1.png" Height="105" Width="110"/>
             </Button>
+            <Label Content="Вернуться назад" Margin="0 0 5 0" FontSize="17" Foreground="#FFE0EF" FontWeight="Bold"/>
         </StackPanel>
 
         <StackPanel Grid.Row="3" Orientation="Vertical" >
-            <Button  FontSize="30" Background="#FF326D" Click="Admin_Click" HorizontalAlignment="Right" BorderThickness="0" Margin="0 0 0 0">
-                <Image Source="Images/admin.png" Height="75" Width="80"/>
+            <Button Background="#FF326D" Click="Admin_Click" HorizontalAlignment="Right" HorizontalContentAlignment="Stretch" BorderThickness="0"  >
+                <Image Source="Images/admin.png" Height="105" Width="110"/>
             </Button>
+            <Label Content="Войти в систему" HorizontalAlignment="Right"  Margin="0 0 5 0" FontSize="17" Foreground="#FFE0EF" FontWeight="Bold" />
         </StackPanel>
 
     </Grid>

@@ -5,8 +5,9 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Buffet_Galina_WPF"
         mc:Ignorable="d"
+        ResizeMode="NoResize"
         WindowStartupLocation="CenterScreen"
-        Title="Страница редактирования" MinHeight="450" MinWidth="800" MaxHeight="550" MaxWidth="900" >
+        Title="Страница редактирования" MinHeight="550" MinWidth="900" MaxHeight="550" MaxWidth="900" >
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="110" />
@@ -28,23 +29,27 @@
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.RowSpan="2" HorizontalAlignment="Left" >
-            <Button Grid.Row="0" Background="White" Margin="0 5 30 0" BorderThickness="0" Click="Back_Click">
+            <Button Grid.Row="0" Background="White" Margin="0 0 30 0" BorderThickness="0" Click="Back_Click">
                 <Image Source="Images/arrow1.png" Height="100" Width="100"  />
             </Button>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0"  VerticalAlignment="Bottom">
+            <Label Content="Вернуться" HorizontalAlignment="Left"  Margin="0 0 0 0" FontSize="20" Foreground="#BC22A2" FontWeight="Bold" />
         </StackPanel>
 
         <StackPanel  Grid.Row="1" Background="#FF326D" >
             <Border BorderThickness="1" BorderBrush="Black" Margin="15" Padding="5" Grid.Row="1" Background="#FF326D" >
                 <StackPanel Background="#FF326D"  >
-                    <TextBlock Text="Название" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding SelectedDish.Title}"/>
-                    <TextBlock Text="Цена" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <TextBox Text="{Binding SelectedDish.Price}"/>
-                    <TextBlock Text="Категория" Foreground="#BC22A2" Background="#FFE0EF" Width="60" HorizontalAlignment="Left"/>
-                    <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategories}" DisplayMemberPath="Title"/>
+                    <TextBlock Text="Название" Foreground="#BC22A2" Background="#FFE0EF" FontSize="15" Width="Auto" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding SelectedDish.Title}" FontSize="15"/>
+                    <TextBlock Text="Цена" Foreground="#BC22A2" Background="#FFE0EF" FontSize="15" Width="Auto" HorizontalAlignment="Left"/>
+                    <TextBox Text="{Binding SelectedDish.Price}" FontSize="15"/>
+                    <TextBlock Text="Категория" Foreground="#BC22A2" Background="#FFE0EF" FontSize="15" Width="Auto" HorizontalAlignment="Left"/>
+                    <ComboBox ItemsSource="{Binding Categories}" SelectedItem="{Binding SelectedCategories}" DisplayMemberPath="Title" FontSize="15"/>
                     <Grid>
-                    <TextBlock Text="Все продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Left" />
-                    <TextBlock Text="Выбранные продукты" Foreground="#BC22A2" Background="#FFE0EF" Width="Auto" HorizontalAlignment="Right" />
+                        <TextBlock Text="Все продукты" Foreground="#BC22A2" Background="#FFE0EF" FontSize="15" Width="Auto" HorizontalAlignment="Left" />
+                        <TextBlock Text="Выбранные продукты" Foreground="#BC22A2" Background="#FFE0EF" FontSize="15" Width="Auto" HorizontalAlignment="Right" />
                     </Grid>
                     <Grid>
                         <Grid.ColumnDefinitions>
@@ -52,12 +57,12 @@
                             <ColumnDefinition Width="Auto"/>
                             <ColumnDefinition/>
                         </Grid.ColumnDefinitions>
-                        <ListBox Height="150" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectProductAdd}" Grid.Column="0" DisplayMemberPath="Title"/>
-                        <ListBox Height="150" ItemsSource="{Binding SelectedProducts}" SelectedItem="{Binding SelectProductRemove}" Grid.Column="2" DisplayMemberPath="Title"/>
+                        <ListBox Height="200" ItemsSource="{Binding Products}" SelectedItem="{Binding SelectProductAdd}" FontSize="15" Grid.Column="0" DisplayMemberPath="Title"/>
+                        <ListBox Height="200" ItemsSource="{Binding SelectedProducts}" SelectedItem="{Binding SelectProductRemove}" FontSize="15" Grid.Column="2" DisplayMemberPath="Title"/>
                         <StackPanel  Grid.Column="1" VerticalAlignment="Center">
-                            <Button Content="->" Click="AddPro_Click" />
-                            <Button Content="&lt;-" Click="RemovePro_Click"/>
-                            <Button Content="Удалить всё" Click="Remove_Click"/>
+                            <Button Content="->" Click="AddPro_Click" FontSize="15"/>
+                            <Button Content="&lt;-" Click="RemovePro_Click" FontSize="15"/>
+                            <Button Content="Удалить всё" Click="Remove_Click" FontSize="15"/>
                         </StackPanel>
                     </Grid>
 
@@ -72,12 +77,12 @@
         <StackPanel Grid.Column="1" Grid.Row="1" Background="#FF326D">
             <Border BorderThickness="1" BorderBrush="Black" Margin="15" Padding="5" Background="White">
                 <StackPanel HorizontalAlignment="Center">
-                    <Image Height="200" Source="{Binding SelectedDish.Image}"/>
-                    <Button Content="Выбрать фото" Click="SelectPhoto" Background="#FFE0EF" Foreground="#BC22A2"/>
+                    <Image Height="300" Source="{Binding SelectedDish.Image}"/>
+                    <Button Content="Выбрать фото" FontSize="15" Click="SelectPhoto" Background="#FFE0EF" Foreground="#BC22A2"/>
                 </StackPanel>
             </Border>
             <StackPanel HorizontalAlignment="Center" Orientation="Horizontal">
-                <Button Content="Сохранить" Click="SaveClose_Click" Background="#FFE0EF" Foreground="#BC22A2"/>
+                <Button Content="Сохранить" Click="SaveClose_Click" Background="#FFE0EF" FontSize="15" Foreground="#BC22A2"/>
             </StackPanel>
         </StackPanel>
     </Grid>
